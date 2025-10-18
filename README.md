@@ -57,7 +57,7 @@ We demonstrate a dimensionality reduction of the problem alongside order of magn
 Get both the cpunks-10k repo and this one
 
 ```shell
-git clone https://github.com/tnn1t1s/cpunks-10k
+git clone https://github.com/jmsdnns/cpunks
 git clone https://github.com/jmsdnns/pallets
 ```
 
