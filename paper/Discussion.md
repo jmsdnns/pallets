@@ -1,4 +1,0 @@
-- interpretation of results and implications
-- comparison with other methods from literature (if can find)
-- discussion of challenges and limitations
-- next steps
