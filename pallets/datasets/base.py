@@ -1,14 +1,13 @@
-import os
 import json
+import os
+
 import torch
 from torch.utils.data import Dataset
 
-from .. import images
-from .. import paths
+from .. import images, paths
 from ..logging import logger
 
-
-CPUNKS_LABELS = os.path.join(paths.CPUNKS_ROOT, 'data', 'punks.json')
+CPUNKS_LABELS = os.path.join(paths.CPUNKS_ROOT, "data", "labels.json")
 
 
 def split_dataset(ds_size, test_size=0):
@@ -28,6 +27,7 @@ class CPunksDataset(Dataset):
     """
     Pytorch dataset that provides all images from cpunks-10k as torch tensors
     """
+
     def __init__(self, labels_file=None, test_size=0):
         self._images = self._load_punks()
         self._labels = self._load_labels(labels_file)
@@ -85,6 +85,7 @@ class FastCPunksDataset(CPunksDataset):
     """
     Same as CPunksDataset, but puts everything on the GPU
     """
+
     def __init__(self, device, *a, **kw):
         super(FastCPunksDataset, self).__init__(*a, **kw)
         # put data on GPU

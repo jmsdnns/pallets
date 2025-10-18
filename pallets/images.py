@@ -1,12 +1,12 @@
 import os
+
 import PIL
 import torch
 from torchvision.transforms.functional import pil_to_tensor
 
 from . import paths
 
-
-CPUNKS_IMAGE_DIR = os.path.join(paths.CPUNKS_ROOT, 'images', 'training')
+CPUNKS_IMAGE_DIR = os.path.join(paths.CPUNKS_ROOT, "data", "images")
 CPUNKS_SIZE = 10000
 
 
@@ -47,10 +47,7 @@ def many_image_colors(imgs):
     """
     Returns an array of unique colors found in an array of images arrays
     """
-    img_data = torch.concatenate(
-        [i.reshape(i.shape[0], -1) for i in imgs],
-        axis=-1
-    )
+    img_data = torch.concatenate([i.reshape(i.shape[0], -1) for i in imgs], axis=-1)
     uniques = torch.unique(img_data, dim=1)
 
     return uniques.T
@@ -81,12 +78,14 @@ def find_pixels(img, colors):
     img = img.reshape(img.shape[0], -1)
     y_pixels = []
     for pixel_idx in range(img.shape[1]):
-        pixel = torch.tensor([
-            img[0][pixel_idx],
-            img[1][pixel_idx],
-            img[2][pixel_idx],
-            img[3][pixel_idx],
-        ])
+        pixel = torch.tensor(
+            [
+                img[0][pixel_idx],
+                img[1][pixel_idx],
+                img[2][pixel_idx],
+                img[3][pixel_idx],
+            ]
+        )
         coords = (pixel_idx // 24), (pixel_idx % 24)
         matches = has_colors(pixel.unsqueeze(0), colors)
         if len(matches) > 0:
@@ -101,7 +100,7 @@ def map_colors(imgs, colors):
     occurrences per pixel is also created for use in heatmaps.
     """
     occurrences = dict()
-    presence  = dict()
+    presence = dict()
     for img in imgs:
         matches = find_pixels(img, colors)
         for m in matches:
